@@ -60,6 +60,7 @@ public class SingerService {
            if(sings[i]!=null && sings[i].getSingerId() == idDel) {
                sings[i] = null;
                size--;
+               System.out.println("Xóa thành công");
                break;
            }
         }

@@ -135,6 +135,41 @@ public class Song {
         this.songWriter= InputMethods.getString();
 
     }
+    public void inputDataNotId( Singer[] singers){
+        System.out.println("nhập tên bài hát");
+        this.songName = InputMethods.getString();
+        System.out.println("Nhập mô tả");
+        this.descriptions = InputMethods.getInput();
+        // chọn ca sĩ từ danh sách;
+        // hiển thị danh sách ca sĩ
+        for (Singer singer: singers) {
+            if(singer!=null){
+                System.out.println("----------------------------------------------------------------");
+                System.out.println("ID : "+singer.getSingerId() + " | Name : "+ singer.getSingerName());
+            }
+        }
+        // cho phép người dùng lựa chọn theo id
+        System.out.println("Nhập vào id cua ca sĩ");
+        while (true){
+            int idSinger = InputMethods.getInteger();
+            boolean flag =true;
+            for (Singer sing: singers) {
+                if(sing!=null&&sing.getSingerId()==idSinger){
+                    flag= false;
+                    this.singer= sing;
+                    break;
+                }
+            }
+            // kiểm tra cờ
+            if(flag){
+                System.err.println("id không tồn tại, vui lòng nhập lại");
+            }else {
+                break;
+            }
+        }
+        System.out.println("Nhập nhạc sĩ");
+        this.songWriter= InputMethods.getString();
+    }
     public void displayData(){
         System.out.println("---------------------------------------");
         System.out.println("ID: "+ songId + " | Name : "+songName);
