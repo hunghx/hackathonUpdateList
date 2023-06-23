@@ -3,9 +3,11 @@ package ra.controller;
 import ra.model.Singer;
 import ra.service.SingerService;
 
+import java.util.List;
+
 public class SingerController {
     private SingerService singerService = new SingerService();
-    public Singer[] getAll(){
+    public List<Singer> getAll(){
         return singerService.getAllSingers();
     }
     public int getSize(){

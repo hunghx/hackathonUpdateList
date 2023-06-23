@@ -2,46 +2,40 @@ package ra.service;
 
 import ra.model.Song;
 
-public class SongService {
-    private Song[] songs = new Song[100];
-    private int size = 0;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Song[] getAllSongs() {
+public class SongService {
+    private List<Song> songs ;
+
+
+    public SongService() {
+        songs = new ArrayList<>();
+    }
+
+    public List<Song> getAllSongs() {
         return songs;
     }
 
     public int getSize() {
-        return size;
+        return songs.size();
     }
 
     // sáu khi đã có dữ liệu của đối tượng song
     public void save(Song song){
         if(findById(song.getSongId())==null){
             // chức năng thêm mới
-            for (int i = 0; i < songs.length; i++) {
-                if(songs[i]== null){
-                    songs[i] = song;
-                    size++;
-                    System.out.println("thêm mới thành công");
-                    return;
-                }
-            }
+            songs.add(song);
+
         }else {
             // update
-            for (int i = 0; i < songs.length; i++) {
-                if(songs[i]!= null && songs[i].getSongId().equals(song.getSongId())){
-//                    đây là đối tượng cần update thông tin
-                    songs[i] = song;
-                    System.out.println("cập nhật thành công");
-                    return;
-                }
-            }
+            songs.set(songs.indexOf(song),song);
         }
     }
     public Song findById(String id){
         for (Song song: songs
         ) {
-            if(song!=null && song.getSongId().equals(id)){
+            if( song.getSongId().equals(id)){
                 // tìm thấy
                 return song;
             }
@@ -56,13 +50,6 @@ public class SongService {
             return;
         }
         // cho phép xóa
-        for (int i = 0; i < songs.length; i++) {
-            if(songs[i]!=null && songs[i].getSongId().equals(idDel)) {
-                songs[i] = null;
-                size--;
-                System.out.println("Xóa thành công");
-                break;
-            }
-        }
+        songs.remove(findById(idDel));
     }
 }

@@ -95,19 +95,7 @@ public class MusicManagement {
     // thêm mới ca sĩ
     public static void createNewSinger() {
         // nhập vào số lượng ca sĩ cần thêm mới
-        int size = singerController.getSize();
-        // lấy ra số lượng tối đâ có thể thêm mới
-        int maxInput = singerController.getAll().length - size;
-        System.out.println("Nhập vào số lượng cần thêm mới");
-        int n;
-        while (true) {
-            n = InputMethods.getPositiveInteger();
-            if (n > maxInput) {
-                System.err.println("Số lượng phần tử quá lớn vui lòng nhập lại");
-            } else {
-                break;
-            }
-        }
+        int n = InputMethods.getInteger();
         for (int i = 0; i < n; i++) {
             System.out.println("Nhập thông tin cho ca sĩ thứ " + (i + 1));
             Singer newSinger = new Singer();
@@ -131,9 +119,7 @@ public class MusicManagement {
 
         for (Singer singer : singerController.getAll()
         ) {
-            if (singer != null) {
                 singer.displayData();
-            }
         }
     }
 
@@ -142,11 +128,16 @@ public class MusicManagement {
         System.out.println("Nhập vào id cần sửa");
         int idEdit = InputMethods.getInteger();
         Singer editSinger = singerController.findById(idEdit);
+
         if(editSinger ==null){
             System.err.println("Không tìm thấy ca sĩ ");
             return;
         }
+        System.out.println("Đối tượng cần sửa là :");
+        editSinger.displayData();
         // cho phép sửa
+//        Singer updateSinger = new Singer();
+//        updateSinger.setSingerId(idEdit);
         editSinger.inputData();
         singerController.save(editSinger);
     }
@@ -205,19 +196,8 @@ public class MusicManagement {
             System.err.println("Không có ca sĩ nào , vui lóng quay ại thêm ca sĩ trước");
             return;
         }
-        int size = songController.getSize();
-        // lấy ra số lượng tối đâ có thể thêm mới
-        int maxInput = songController.getAll().length - size;
         System.out.println("Nhập vào số lượng cần thêm mới");
-        int n;
-        while (true) {
-            n = InputMethods.getPositiveInteger();
-            if (n > maxInput) {
-                System.err.println("Số lượng phần tử quá lớn vui lòng nhập lại");
-            } else {
-                break;
-            }
-        }
+        int n = InputMethods.getInteger();
         for (int i = 0; i < n; i++) {
             System.out.println("Nhập thông tin cho bai hat thứ " + (i + 1));
             Song newSong = new Song();
@@ -234,12 +214,8 @@ public class MusicManagement {
             System.err.println("Không có bai hat nào ");
             return;
         }
-
-        for (Song song : songController.getAll()
-        ) {
-            if (song != null) {
+        for (Song song : songController.getAll()) {
                 song.displayData();
-            }
         }
     }
 
@@ -252,7 +228,6 @@ public class MusicManagement {
             System.err.println("Không tìm thấy ca sĩ ");
             return;
         }
-
         // cho phép sửa
         editSong.inputDataNotId( singerController.getAll());
         songController.save(editSong);

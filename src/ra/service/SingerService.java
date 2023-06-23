@@ -2,46 +2,37 @@ package ra.service;
 
 import ra.model.Singer;
 
-public class SingerService {
-    private Singer[] sings = new Singer[100];
-    private int size = 0;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Singer[] getAllSingers() {
+public class SingerService {
+    private List<Singer> sings;
+
+    public SingerService() {
+        sings= new ArrayList<>();
+    }
+
+    public List<Singer> getAllSingers() {
         return sings;
     }
 
     public int getSize() {
-        return size;
+        return sings.size();
     }
 
      // sáu khi đã có dữ liệu của đối tượng singer
     public void save(Singer singer){
         if(findById(singer.getSingerId())==null){
             // chức năng thêm mới
-            for (int i = 0; i < sings.length; i++) {
-                if(sings[i]== null){
-                    sings[i] = singer;
-                    size++;
-                    System.out.println("thêm mới thành công");
-                    return;
-                }
-            }
+            sings.add(singer);
         }else {
             // update
-            for (int i = 0; i < sings.length; i++) {
-                if(sings[i]!= null && sings[i].getSingerId()==singer.getSingerId()){
-//                    đây là đối tượng cần update thông tin
-                    sings[i] = singer;
-                    System.out.println("cập nhật thành công");
-                    return;
-                }
-            }
+            sings.set(sings.indexOf(findById(singer.getSingerId())),singer);
         }
     }
     public Singer findById(int id){
-        for (Singer sing: sings
-             ) {
-            if(sing!=null && sing.getSingerId() == id){
+        for (Singer sing: sings) {
+            if(sing.getSingerId() == id){
                 // tìm thấy
                 return sing;
             }
@@ -51,28 +42,19 @@ public class SingerService {
     }
     public  void deleteSinger(int idDel){
         if(findById(idDel) == null){
-            // không ttoonf tại
+            // không ton tại
             System.err.println("ID không tồn tại");
             return;
         }
         // cho phép xóa
-        for (int i = 0; i < sings.length; i++) {
-           if(sings[i]!=null && sings[i].getSingerId() == idDel) {
-               sings[i] = null;
-               size--;
-               System.out.println("Xóa thành công");
-               break;
-           }
-        }
+        sings.remove(findById(idDel));
 
     }
     public int getNewId(){
-
         // id tự tăng
         int max=0;
-        for (Singer sing : sings
-             ) {
-            if(sing!=null && sing.getSingerId()> max){
+        for (Singer sing : sings) {
+            if(sing.getSingerId()> max){
                 max = sing.getSingerId();
             }
         }

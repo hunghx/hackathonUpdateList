@@ -3,6 +3,7 @@ package ra.model;
 import ra.config.InputMethods;
 
 import java.util.Date;
+import java.util.List;
 
 public class Song {
     private String songId;
@@ -82,7 +83,7 @@ public class Song {
     public void setSongStatus(boolean songStatus) {
         this.songStatus = songStatus;
     }
-    public void inputData(Song[] songs, Singer[] singers){
+    public void inputData(List<Song> songs, List<Singer> singers){
         System.out.println("Nhập vào Id : (bắt đầu chữ S và có 4 kí tự)");
         // kiểm tra trùng
         while (true){
@@ -135,7 +136,7 @@ public class Song {
         this.songWriter= InputMethods.getString();
 
     }
-    public void inputDataNotId( Singer[] singers){
+    public void inputDataNotId( List<Singer> singers){
         System.out.println("nhập tên bài hát");
         this.songName = InputMethods.getString();
         System.out.println("Nhập mô tả");
